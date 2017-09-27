@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - (c) Copyright IBM Corporation 2017.
+ - This is licensed under the following license.
+ - The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ - U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+<plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <header>
+    <identifier id="com.urbancode.air.plugin.autosys" name="Autosys" version="3"/>
+    <description>
+      This plug-in provides steps for integrating with a CA Workload Automation AE Server (Autosys)
+    </description>
+    <tag>Automation/Autosys</tag>
+  </header>
+  <step-type name="Send Autosys Event">
+    <description>Send event to CA Workload Automation AE Application Server</description>
+    <properties>
+      <property name="dirOffset">
+        <property-ui type="textBox"
+                     label="Directory Offset"
+                     description="The directory offset relative to the current working directory where the step should run."/>
+      </property>
+      <property name="asEvent" required="true">
+        <property-ui type="selectBox"
+                     label="Event"
+                     description="Event to send to the CA Workload Automation AE Application Server. Properties marked with * may not work with newer CA WAAE versions"/>
+        <value label="ALARM">ALARM</value>
+        <value label="CHANGE_PRIORITY">CHANGE_PRIORITY</value>
+        <value label="CHANGE_STATUS">CHANGE_STATUS</value>
+        <value label="*CHECK_HEARTBEAT">CHECK_HEARTBEAT</value>
+        <value label="*CHK_BOX_TERM">CHK_BOX_TERM</value>
+        <value label="*CHK_MAX_ALARM">CHK_MAX_ALARM</value>
+        <value label="*CHK_N_START">CHK_N_START </value>
+        <value label="*CHK_RUN_WINDOW">CHK_RUN_WINDOW</value>
+        <value label="COMMENT">COMMENT</value>
+        <value label="DELETEJOB">DELETEJOB</value>
+        <value label="*EXTERNAL_DEPENDENCY">EXTERNAL_DEPENDENCY</value>
+        <value label="FORCE_STARTJOB">FORCE_STARTJOB</value>
+        <value label="*HEARTBEAT">HEARTBEAT</value>
+        <value label="JOB_OFF_HOLD">JOB_OFF_HOLD</value>
+        <value label="JOB_OFF_ICE">JOB_OFF_ICE</value>
+        <value label="JOB_ON_HOLD">JOB_ON_HOLD</value>
+        <value label="JOB_ON_ICE">JOB_ON_ICE</value>
+        <value label="KILLJOB">KILLJOB</value>
+        <value label="MACH_OFFLINE">MACH_OFFLINE</value>
+        <value label="MACH_ONLINE">MACH_ONLINE</value>
+        <value label="*QUE_RECOVERY">QUE_RECOVERY</value>
+        <value label="RELEASE_RESOURCE">RELEASE_RESOURCE</value>
+        <value label="REPLY_RESPONSE">REPLY_RESPONSE</value>
+        <value label="*REFRESH_BROKER">REFRESH_BROKER</value>
+        <value label="*RESEND_EXTERNAL_STATUS">RESEND_EXTERNAL_STATUS</value>
+        <value label="RESTARTJOB">RESTARTJOB</value>
+        <value label="SEND_SIGNAL">SEND_SIGNAL</value>
+        <value label="SET_GLOBAL">SET_GLOBAL</value>
+        <value label="STARTJOB">STARTJOB</value>
+        <value label="STOP_DEMON">STOP_DEMON</value>
+      </property>
+
+      <property name="asAlarm">
+        <property-ui type="selectBox"
+                     label="Alarm"
+                     description="Name of the Autosys Job"/>
+        <value label="none">none</value>
+        <value label="AUTO_PING">AUTO_PING</value>
+        <value label="CHASE">CHASE</value>
+        <value label="CPI_JOBNAME_INVALID">CPI_JOBNAME_INVALID</value>
+        <value label="CPI_UNAVAILABLE">CPI_UNAVAILABLE</value>
+        <value label="DATABASE_COMM">DATABASE_COMM</value>
+        <value label="DB_PROBLEM">DB_PROBLEM</value>
+        <value label="DB_ROLLOVER">DB_ROLLOVER</value>
+        <value label="DUPLICATE_EVENT">DUPLICATE_EVENT</value>
+        <value label="EP_HIGH_AVAIL">EP_HIGH_AVAIL</value>
+        <value label="EP_ROLLOVER">EP_ROLLOVER</value>
+        <value label="EP_SHUTDOWN">EP_SHUTDOWN</value>
+        <value label="EVENT_HDLR_ERROR">EVENT_HDLR_ERROR</value>
+        <value label="EVENT_QUE_ERROR">EVENT_QUE_ERROR</value>
+        <value label="EXTERN_DEPS_ERROR">EXTERN_DEPS_ERROR</value>
+        <value label="FORKFAIL">FORKFAIL</value>
+        <value label="INSTANCE_UNAVAILABLE">INSTANCE_UNAVAILABLE</value>
+        <value label="JOBFAILURE">JOBFAILURE</value>
+        <value label="JOBNOT_ONICEHOLD">JOBNOT_ONICEHOLD</value>
+        <value label="MACHINE_UNAVAILABLE">MACHINE_UNAVAILABLE</value>
+        <value label="MAXRUNALARM">MAXRUNALARM</value>
+        <value label="MAX_RETRYS">MAX_RETRYS</value>
+        <value label="MINRUNALARM">MINRUNALARM</value>
+        <value label="MISSING_HEARTBEAT">MISSING_HEARTBEAT</value>
+        <value label="OB_SHUTDOWN">OB_SHUTDOWN</value>
+        <value label="RESOURCE">RESOURCE</value>
+        <value label="SERVICEDESK_FAILURE">SERVICEDESK_FAILURE</value>
+        <value label="STARTJOBFAIL">STARTJOBFAIL</value>
+        <value label="UNINOTIFY_FAILURE">UNINOTIFY_FAILURE</value>
+        <value label="VERSION_MISMATCH">VERSION_MISMATCH</value>
+      </property>
+      <property name="asJobName">
+        <property-ui type="textBox"
+                     label="Job Name"
+                     description="Name of the Autosys Job"/>
+      </property>
+      <property name="asApplicationName">
+        <property-ui type="textBox"
+                     label="Autosys Application Name"
+                     description=""/>
+      </property>
+      <property name="asStatus">
+        <property-ui type="selectBox"
+                     label="Status"
+                     description=""/>
+        <value label="none">none</value>
+        <value label="ACTIVATED">ACTIVATED</value>
+        <value label="ASSUCCESS">ASSUCCESS</value>
+        <value label="FAILURE">FAILURE </value>
+        <value label="INACTIVE">INACTIVE</value>
+        <value label="ON_HOLD">ON_HOLD</value>
+        <value label="ON_ICE">ON_ICE</value>
+        <value label="QUE_WAIT">QUE_WAIT</value>
+        <value label="REFRESH_DEPENDENCIES">REFRESH_DEPENDENCIES</value>
+        <value label="REFRESH_FILEWATCHER">REFRESH_FILEWATCHER</value>
+        <value label="RESTART">RESTART</value>
+        <value label="RUNNING">RUNNING</value>
+        <value label="STARTING">STARTING</value>
+        <value label="SUCCESS">SUCCESS</value>
+        <value label="TERMINATED">TERMINATED</value>
+      </property>
+      <property name="AUTOSYS">
+        <property-ui type="textBox"
+                     label="Env AUTOSYS"
+                     default-value='${p:resource/Autosys/AUTOSYS}'
+                     description="Autosys install directory"/>
+      </property>
+      <property name="AUTOROOT">
+        <property-ui type="textBox"
+                     label="Env AUTOROOT"
+                     default-value='${p:resource/Autosys/AUTOROOT}'
+                     description="CA Workload Automation AE install directory"/>
+      </property>
+      <property name="AUTOUSER">
+        <property-ui type="textBox"
+                     label="Env AUTOUSER"
+                     default-value='${p:resource/Autosys/AUTOUSER}'
+                     description="Location of the AutoUser directory on the agent"/>
+      </property>
+      <property name="AUTOSERV">
+        <property-ui type="textBox"
+                     label="Env AUTOSERV"
+                     default-value='${p:resource/Autosys/AUTOSERV}'
+                     description="CA Workload Automation instance name (i.e. ACE)"/>
+      </property>
+      <property name="asUnSendEvent">
+        <property-ui type="textBox"
+                     label="Un-send Event"
+                     description="Cancels the last event specified by the Event dropdown"/>
+      </property>
+      <property name="asAdditional">
+        <property-ui type="textAreaBox"
+                     label="Additional Arguments"
+                     description='Enter additional parameters (line separated) to pass to the sendevent command (i.e. "-N machine")'/>
+      </property>
+
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp" />
+      <arg path="classes:lib/securedata.jar:lib/jettison-1.1.jar:lib/commons-codec.jar:lib/CommonsUtil.jar" />
+      <arg file="sendEvent.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Check Autosys Server">
+    <description>Runs the chk_auto_up command</description>
+    <properties>
+      <property name="dirOffset">
+        <property-ui type="textBox"
+                     label="Directory Offset"
+                     description="The directory offset relative to the current working directory where the step should run."/>
+      </property>
+      <property name="successCodes">
+        <property-ui type="textBox"
+                     label="Acceptable Exit Codes"
+                     description='Comma separated list of acceptable exit codes. Check CA documentation as these do not follow POSIX conventions'/>
+      </property>
+
+      <property name="failureCodes">
+        <property-ui type="textBox"
+                     label="Unacceptable Exit Codes"
+                     description='Comma separated list of unacceptable exit codes. Check CA documentation as these do not follow POSIX conventions'/>
+      </property>
+      <property name="AUTOSYS">
+        <property-ui type="textBox"
+                     label="Env AUTOSYS"
+                     default-value='${p:resource/Autosys/AUTOSYS}'
+                     description="Autosys install directory"/>
+      </property>
+      <property name="AUTOROOT">
+        <property-ui type="textBox"
+                     label="Env AUTOROOT"
+                     default-value='${p:resource/Autosys/AUTOROOT}'
+                     description="CA Workload Automation AE install directory"/>
+      </property>
+      <property name="AUTOUSER">
+        <property-ui type="textBox"
+                     label="Env AUTOUSER"
+                     default-value='${p:resource/Autosys/AUTOUSER}'
+                     description="Location of the AutoUser directory on the agent"/>
+      </property>
+      <property name="AUTOSERV">
+        <property-ui type="textBox"
+                     label="Env AUTOSERV"
+                     default-value='${p:resource/Autosys/AUTOSERV}'
+                     description="CA Workload Automation instance name (i.e. ACE)"/>
+      </property>
+
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp" />
+      <arg path="classes:lib/securedata.jar:lib/jettison-1.1.jar:lib/commons-codec.jar:lib/CommonsUtil.jar" />
+      <arg file="chkAutoUp.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Execute JIL Script">
+    <description>Runs a JIL Script on the CA WAAE server</description>
+    <properties>
+      <property name="dirOffset">
+        <property-ui type="textBox"
+                     label="Directory Offset"
+                     description="The directory offset relative to the current working directory where the step should run."/>
+      </property>
+      <property name="contents">
+        <property-ui type="textAreaBox"
+                     label="JIL Script"
+                     description='Contents of JIL script to be executed'/>
+      </property>
+      <property name="AUTOSYS">
+        <property-ui type="textBox"
+                     label="Env AUTOSYS"
+                     default-value='${p:resource/Autosys/AUTOSYS}'
+                     description="Autosys install directory"/>
+      </property>
+      <property name="AUTOROOT">
+        <property-ui type="textBox"
+                     label="Env AUTOROOT"
+                     default-value='${p:resource/Autosys/AUTOROOT}'
+                     description="CA Workload Automation AE install directory"/>
+      </property>
+      <property name="AUTOUSER">
+        <property-ui type="textBox"
+                     label="Env AUTOUSER"
+                     default-value='${p:resource/Autosys/AUTOUSER}'
+                     description="Location of the AutoUser directory on the agent"/>
+      </property>
+      <property name="AUTOSERV">
+        <property-ui type="textBox"
+                     label="Env AUTOSERV"
+                     default-value='${p:resource/Autosys/AUTOSERV}'
+                     description="CA Workload Automation instance name (i.e. ACE)"/>
+      </property>
+
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp" />
+      <arg path="classes:lib/securedata.jar:lib/jettison-1.1.jar:lib/commons-codec.jar:lib/CommonsUtil.jar" />
+      <arg file="jil.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+</plugin>
